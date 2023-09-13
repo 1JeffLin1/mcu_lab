@@ -1,0 +1,80 @@
+
+Linker Version 8.7.2.161220
+Input Object File: D:\holtek\lecture\Lab_8x8_LED\STARTUP1_L.OBJ
+Input Object File: D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ
+
+Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB
+Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\v3_tabrd_mrsc.lib
+
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+     00h     0000h     0000h    0001h      CODE               @code (D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ)
+     00h     0001h     003bh    003bh      CODE               @start (D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ)
+     00h     003ch     006eh    0033h      CODE               @ROMDATA_BASE (D:\holtek\lecture\Lab_8x8_LED\STARTUP1_L.OBJ)
+     00h     006fh     0087h    0019h      CODE               _delay (D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ)
+     00h     0088h     00d0h    0049h      CODE               _main (D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ)
+     00h     00d1h     00d5h    0005h      CODE               _CROM2PROM (CROM2PROM)
+     00h     0080h     00dfh    0060h      DATA     0         @HCCINIT (D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ)
+     00h     00e0h     00e0h    0001h      DATA     3         @data_ra (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     00e1h     00e1h    0001h      DATA     5         @data_rb (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     00e2h     00e2h    0001h      DATA     5         @data_rc (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+
+     Local Sections
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+     00h     00ech     00ech    0000h      LOCAL    0         @dummy (D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ)
+     00h     00e5h     00ebh    0007h      LOCAL    3.8571    _main (D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ)
+     00h     00e3h     00e3h    0000h      LOCAL    0         _Crom2Prom (CROM2PROM)
+     00h     00e3h     00e4h    0002h      LOCAL    2         _delay (D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ)
+
+     Public Symbols Information
+     Address            Public by Name
+     00d2h              _Crom2Prom
+     00d1h              _Crom2PromNext
+     00d8h              _LedTablex
+     0080h              _LedTabley
+     006fh              _delay
+     00e3h              _delay_2
+     0088h              _main
+     00e0h              ra
+     00e1h              rb
+     00e2h              rc
+     003bh              startup_value_1
+
+     Address            Public by Value
+     003bh              startup_value_1
+     006fh              _delay
+     0080h              _LedTabley
+     0088h              _main
+     00d1h              _Crom2PromNext
+     00d2h              _Crom2Prom
+     00d8h              _LedTablex
+     00e0h              ra
+     00e1h              rb
+     00e2h              rc
+     00e3h              _delay_2
+
+
+ROM Usage Statistics
+     Size      Used     Percentage
+     2000h     00d6h    2%
+
+RAM Usage Statistics
+    Bank      Size      Used     Percentage
+     00h       0080h     006ch    84%
+     01h       0080h     0000h    0%
+     02h       0080h     0000h    0%
+     Total     0180h     006ch    28%
+
+Use Stack Count
+_main: 1
+
+Call Tree
+    @dummy
+        _main (0)
+            _Crom2Prom (1)
+            _delay (1)
+
+HLINK: Program entry point at section '@code' (address 0) of file 'D:\holtek\lecture\Lab_8x8_LED\LAB112_L01_8X8LEDS.OBJ'
+
+Total 0 error(s), Total 0 Warning(s)
