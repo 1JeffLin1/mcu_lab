@@ -10,8 +10,8 @@
 
 #include "HT66F50.h"
 
-#define Led7_com _pe  // pd ï¿½ï¿½
-#define Led7_seg _pd  // pe ï¿½ï¿½
+#define Led7_com _pe  // pd °ð
+#define Led7_seg _pd  // pe °ð
 #define divf_no 32768 // 65536
 #define speed_up 4    // speed up counting of timer
 
@@ -50,7 +50,7 @@ void bcd_4dig_to_4byte(unsigned char Hbyte_bcd, unsigned char Lbyte_bcd) // tran
     dig_bcd[3] = Hbyte_bcd / 16;   // high nibble of Hbyte_bcd
 }
 
-void main(void) // ï¿½Dï¿½ç¦¡
+void main(void) // ¥D¨ç¦¡
 {
     //	unsigned int  j, i ;
     unsigned char dig_pos, bcd_U, bcd_H, bcd_L, bcdcode, ampm; // T12_24
@@ -68,9 +68,9 @@ void main(void) // ï¿½Dï¿½ç¦¡
     //**************************************************************************************//
     _smod = 0b00000001;    // [7:5]=100->fH/16,110-->fH/4,111-->fH/2; [0]=1/0-->fH/(? or fL)
                            //	_smod=0b00000000; 	// [7:5]=000,001->fL,[0]=1-->fH, [1]=1/0:IDLE/SLEEP
-    _pdc = 0;              // ï¿½]ï¿½w PD ï¿½ð¬°¿ï¿½X
-    _pec = 0;              // ï¿½]ï¿½w PE ï¿½ð¬°¿ï¿½X
-    _pcc0 = 0;             // ï¿½]ï¿½w PC0 ï¿½ð¬°¿ï¿½X
+    _pdc = 0;              // ³]©w PD °ð¬°¿é¥X
+    _pec = 0;              // ³]©w PE °ð¬°¿é¥X
+    _pcc0 = 0;             // ³]©w PC0 °ð¬°¿é¥X
     Led7_com = led7com[0]; // 7-seg display COM (PD) OFF
     Led7_seg = led7seg[0]; // 7-seg display (PE) OFF
     _pc0 = 0;              // flickering LED for counting second; flickering once per 2 seconds
@@ -78,7 +78,7 @@ void main(void) // ï¿½Dï¿½ç¦¡
     //	_wdtc=0b01111010; //[3:0]=1010:default-->disable WDT timer
     //	_acerl = _acerl & 0b11110111;  //POR:0b11110111, disable PA3 as AN3
     //	_c0sel=0; 		//disable PA2/TCK0/C0+/AN2, PA3/INT0/C0-/AN3 as C0+, C0-
-    //	_pac3 = 1 ; 	// ï¿½]ï¿½w PA3 ï¿½ð¬°¿ï¿½J
+    //	_pac3 = 1 ; 	// ³]©w PA3 °ð¬°¿é¤J
     //
     //	_c1sel=0;  	//disable PC2/TCK2/PCK/C1+, PC3/PINT/TP2_0/C1- as C1+, C1-
     //	_pcc3=0;	//PC3/PINT/TP2_0/C1-
@@ -194,7 +194,7 @@ void main(void) // ï¿½Dï¿½ç¦¡
             Led7_com = 0x00;
             if ((dig_pos == 1 & dig_bcd[dig_pos] == 0) | (dig_pos == 3 & dig_bcd[dig_pos] == 0))
             {
-                Led7_seg = 0x00; // å…¨æš—
+                Led7_seg = 0x00; // ¥þ·t
             }
             else
             {
