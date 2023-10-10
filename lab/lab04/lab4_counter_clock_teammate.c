@@ -198,7 +198,7 @@ void main(void) // ¥D¨ç¦¡
             }
             else
             {
-                Led7_seg = (led7seg[dig_bcd[dig_pos]] | ampm)
+                Led7_seg = (led7seg[dig_bcd[dig_pos]] | ampm);
             }
 
             Led7_com = led7com[dig_pos]; // 8x8 LED X-axis (PD) OFF
