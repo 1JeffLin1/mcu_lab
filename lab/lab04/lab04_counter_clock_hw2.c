@@ -60,14 +60,12 @@ void main(void) // 主函式
     _papu3 = 1;
     _pac3 = 1;
 
-    _pawu2 = 1;
-    _papu2 = 1;
-    _pac2 = 1;
-
     _pcc7 = 0; // 設定pc7輸出
     _pc7 = 0;  // 先設定pc7為0
     //	unsigned int  j, i ;
-    unsigned char dig_pos, bcd_U, bcd_H, bcd_L, bcdcode, ampm, t12_24;
+    unsigned char dig_pos, bcd_U, bcd_H, bcd_L, bcdcode, ampm;
+    //  t12_24 = 1表示24H, t12_24 = 0表示12H, 預設為0
+    unsigned char t12_24 = 0;
 
     //	_acerl =0;  //POR:0b11111111,
     // The ACERH and ACERL control registers contain the ACER11~ACER0 bits which determine
@@ -129,7 +127,7 @@ void main(void) // 主函式
     _t2on = 1;
     ampm = 0;     // ampm=0x00:AM; ampm=0x80:PM
     bcd_U = 0x11; // Hour
-    bcd_H = 0x58; // Minute
+    bcd_H = 0x59; // Minute
     bcd_L = 0x00; // Second
 
     bcd_4dig_to_4byte(bcd_U, bcd_H);
@@ -148,7 +146,16 @@ void main(void) // 主函式
 
             if (_pa3 == 0)
             {
-                t12_24 = ~t12_24;
+                t12_24 = !t12_24;
+            }
+
+            if (t12_24 == 1)
+            {
+                _pc7 = 1;
+            }
+            else
+            {
+                _pc7 = 0;
             }
 
             if (bcd_L == 0x59)
@@ -196,18 +203,47 @@ void main(void) // 主函式
             //_pc0 = ~_pc0;		//bit-wised "not" operator
             bcd_4dig_to_4byte(bcd_U, bcd_H);
         }
-        if (_pa3 == 0)
-        {
-            t12_24 = ~t12_24;
-        }
 
         for (dig_pos = 0; dig_pos < 4; dig_pos++)
         {
             Led7_com = 0x00;
 
-            Led7_seg = (led7seg[dig_bcd[dig_pos]] | ampm);
-            Led7_com = led7com[dig_pos];
-            delay(2);
+            if (t12_24 == 0) // 12h
+            {
+                Led7_seg = (led7seg[dig_bcd[dig_pos]] | ampm);
+                Led7_com = led7com[dig_pos];
+                delay(2);
+            }
+            else // 24h
+            {
+                if (ampm == 0x80) // 代表pm
+                {
+                    if (dig_pos == 2)
+                    {
+                        Led7_seg = (led7seg[dig_bcd[dig_pos] + 2]);
+                        Led7_com = led7com[dig_pos];
+                        delay(2);
+                    }
+                    else if (dig_pos == 3)
+                    {
+                        Led7_seg = (led7seg[dig_bcd[dig_pos] + 1]);
+                        Led7_com = led7com[dig_pos];
+                        delay(2);
+                    }
+                    else
+                    {
+                        Led7_seg = (led7seg[dig_bcd[dig_pos]]);
+                        Led7_com = led7com[dig_pos];
+                        delay(2);
+                    }
+                }
+                else // 代表am
+                {
+                    Led7_seg = (led7seg[dig_bcd[dig_pos]]);
+                    Led7_com = led7com[dig_pos];
+                    delay(2);
+                }
+            }
         }
     }
 }
