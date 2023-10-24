@@ -239,9 +239,8 @@ void main(void) // 主函式
 		// Check whether VR1 >= VR0, CDS >= VR0, and CDS <= VR1
 		// If not, the buzzer is on
 		_pc0 = 0;
-		if ((adc2h * 256 + adc2l > (adc1h * 256 + adc1l)) | (adc1h * 256 + adc1l <= (adc0h * 256 + adc0l)))
-			_t0on = 1;
-		else if (adc2h * 256 + adc2l < adc0h * 256 + adc0l) // fall asleep
+
+		if (adc2h * 256 + adc2l < adc0h * 256 + adc0l) // fall asleep
 		{
 			_adcr0 |= 0b00100000; // [5]=1:ADOFF ADC OFF;[4]=1:ADRH[3:0]-ADRL[7:0]; [2:0]=000:AN0
 			_t0on = 0;
@@ -250,40 +249,44 @@ void main(void) // 主函式
 			delay(50);
 			_adcr0 &= 0b11011111; // [5]=1:ADOFF ADC OFF;[4]=1:ADRH[3:0]-ADRL[7:0]; [2:0]=000:AN0
 		}
+		else if ((adc2h * 256 + adc2l > (adc1h * 256 + adc1l)) | (adc1h * 256 + adc1l <= (adc0h * 256 + adc0l)))
+			_t0on = 1;
 		else
 		{
-
 			_t0on = 0;
 		}
+
 		//	check whether the light intensity is in the normal range
 		if ((adc2h * 256 + adc2l <= (adc1h * 256 + adc1l)) && (adc2h * 256 + adc2l >= adc0h * 256 + adc0l))
 			_pc0 = 1;
 		else
 			_pc0 = 0;
+
 		//
 		// scanning display of 4-digit seven-segment LEDs
 		//		more uniform light intensity
-		if (_pa4 == 1)
+		if (_pa4 == 0)
 		{
 			bin2bcd(adc0h * 256 + adc0l);
+
 			for (dig_pos = 0; dig_pos < 4; dig_pos++)
 			{
 				Led7_com = 0x00;					  // common-cathode pins off; 0-->off, 1-->on
 				Led7_seg = led7seg[dig_bcd[dig_pos]]; // change the LED pattern
-				if (dig_pos == adc_no / adc_disp_sw)
+				if (dig_pos == 0)
 					Led7_seg = led7seg[dig_bcd[dig_pos]] | 0b10000000; // change the LED pattern
 				Led7_com = led7com[dig_pos];						   // change the seleted digit position
 				delay(56 - (dig_pos / 3) * 55);						   // longer delay --> higher LED brightness
 			}
 		}
-		else if (_pa3 == 1)
+		else if (_pa3 == 0)
 		{
 			bin2bcd(adc1h * 256 + adc1l);
 			for (dig_pos = 0; dig_pos < 4; dig_pos++)
 			{
 				Led7_com = 0x00;					  // common-cathode pins off; 0-->off, 1-->on
 				Led7_seg = led7seg[dig_bcd[dig_pos]]; // change the LED pattern
-				if (dig_pos == adc_no / adc_disp_sw)
+				if (dig_pos == 1)
 					Led7_seg = led7seg[dig_bcd[dig_pos]] | 0b10000000; // change the LED pattern
 				Led7_com = led7com[dig_pos];						   // change the seleted digit position
 				delay(56 - (dig_pos / 3) * 55);						   // longer delay --> higher LED brightness
